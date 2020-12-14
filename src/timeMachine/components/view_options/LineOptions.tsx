@@ -34,6 +34,7 @@ import {
   setHoverDimension,
   setLegendOpacity,
   setLegendOrientationThreshold,
+    setLegendColorizeRows,
   setGenerateXAxisTicks,
   setXTotalTicks,
   setXTickStart,
@@ -140,7 +141,7 @@ class LineOptions extends PureComponent<Props> {
               onTimeFormatChange={onSetTimeFormat}
             />
           </Form.Element>
-          <h5 className="view-options--header">Options</h5>
+          <h5 className="view-options--header">Options Foo jill 18</h5>
         </Grid.Column>
         {geom && <Geom geom={geom} onSetGeom={onSetGeom} />}
         <ColorSelector

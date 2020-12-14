@@ -259,10 +259,14 @@ class UnconnectedCommunityTemplatesIndex extends Component<Props, State> {
   }
 
   private handleTemplateChange = event => {
-    const validationMessage = validateTemplateURL(event.target.value)
+
+    console.log("ack! jill here! a1");
+
+    const trimmed = event.target.value? event.target.value.trim() : event.target.value;
+    const validationMessage = validateTemplateURL(trimmed)
 
     this.setValidationMessage(validationMessage)
-    this.props.setStagedTemplateUrl(event.target.value)
+    this.props.setStagedTemplateUrl(trimmed)
   }
 
   private handleInputKeyPress = event => {

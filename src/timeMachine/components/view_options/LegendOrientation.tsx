@@ -27,6 +27,7 @@ import {
   LEGEND_OPACITY_MAXIMUM,
   LEGEND_OPACITY_MINIMUM,
   LEGEND_OPACITY_STEP,
+  LEGEND_COLORIZATION_ROWS_DEFAULT,
 } from 'src/shared/constants'
 
 interface OwnProps {
@@ -108,6 +109,7 @@ const LegendOrientation: FC<Props> = props => {
   )
 }
 
+//map state to props
 const mstp = (state: AppState) => {
   const timeMachine = getActiveTimeMachine(state)
   const legendOrientationThreshold: number = get(
@@ -120,7 +122,20 @@ const mstp = (state: AppState) => {
     'view.properties.legendOpacity',
     LEGEND_OPACITY_DEFAULT
   )
-  return {legendOpacity, legendOrientationThreshold}
+
+  const legendColorizationRows: boolean = get(
+      timeMachine,
+      'view.properties.legendColorizationRows',
+      LEGEND_COLORIZATION_ROWS_DEFAULT
+  )
+
+  // todo:  if a feature flag is enabled, add legendColorizationRows to the return; else exclude it
+  // (put above declaration in the clause too)
+  // let result = {legendOpacity, legendOrientationThreshold}
+  // result = {...result, legendColorizationRows}
+  // return result
+
+  return {legendOpacity, legendOrientationThreshold, legendColorizationRows}
 }
 
 const connector = connect(mstp)
