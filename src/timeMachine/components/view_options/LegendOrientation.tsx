@@ -10,12 +10,18 @@ import {getActiveTimeMachine} from 'src/timeMachine/selectors'
 
 // Components
 import {
+  ComponentSize,
   ComponentStatus,
   Form,
   Grid,
   Input,
+  InputLabel,
   InputType,
   RangeSlider,
+    SlideToggle,
+  FlexBox,
+  FlexDirection,
+    AlignItems,
 } from '@influxdata/clockface'
 
 // Types
@@ -32,6 +38,7 @@ import {
 interface OwnProps {
   onLegendOpacityChange: (opacity: number) => void
   onLegendOrientationThresholdChange: (threshold: number) => void
+  onLegendColorizeRows: (colorize: boolean) => void
 }
 
 type ReduxProps = ConnectedProps<typeof connector>
@@ -50,6 +57,9 @@ const LegendOrientation: FC<Props> = props => {
   )
   const [thresholdInput, setThresholdInput] = useState(
     legendOrientationThreshold
+  )
+  const [legendColorizeRows, setLegendColorizeRows] = useState(
+      true //todo make real
   )
 
   if (!isFlagEnabled('legendOrientation')) {
@@ -78,6 +88,8 @@ const LegendOrientation: FC<Props> = props => {
     }
   }
 
+  const sliderStyle={marginTop: 4}
+
   return (
     <Grid.Column>
       <h5 className="view-options--header">Legend</h5>
@@ -103,6 +115,22 @@ const LegendOrientation: FC<Props> = props => {
           value={legendOpacity}
           onChange={handleSetOpacity}
         />
+      </Form.Element>
+
+      <Form.Element>
+        <FlexBox
+            direction={FlexDirection.Row}
+            alignItems={AlignItems.Center}
+            margin={ComponentSize.Medium}
+            stretchToFitWidth={true}
+            style={sliderStyle}
+        >
+        <SlideToggle
+            active={legendColorizeRows}
+            size={ComponentSize.ExtraSmall}
+          />
+        <InputLabel>Colorize Rows</InputLabel>
+        </FlexBox>
       </Form.Element>
     </Grid.Column>
   )

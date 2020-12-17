@@ -64,6 +64,7 @@ const XYPlot: FC<Props> = ({
     hoverDimension,
     legendOpacity,
     legendOrientationThreshold,
+      legendColorizeRows,
     generateXAxisTicks,
     xTotalTicks,
     xTickStart,
