@@ -5,6 +5,7 @@ import {DEFAULT_CELL_NAME} from 'src/dashboards/constants'
 import {
   LEGEND_OPACITY_DEFAULT,
   LEGEND_ORIENTATION_THRESHOLD_DEFAULT,
+    LEGEND_COLORIZATION_ROWS_DEFAULT
 } from 'src/shared/constants'
 import {
   DEFAULT_GAUGE_COLORS,
@@ -73,6 +74,7 @@ export function defaultBuilderConfig(): BuilderConfig {
 
 const legendProps = {  legendOpacity: LEGEND_OPACITY_DEFAULT,
   legendOrientationThreshold: LEGEND_ORIENTATION_THRESHOLD_DEFAULT,
+  legendColorizeRows : LEGEND_COLORIZATION_ROWS_DEFAULT,
 }
 
 export function defaultLineViewProperties() {

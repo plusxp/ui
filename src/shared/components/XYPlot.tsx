@@ -16,6 +16,7 @@ import {useAxisTicksGenerator} from 'src/shared/utils/useAxisTicksGenerator'
 import {
   useLegendOpacity,
   useLegendOrientationThreshold,
+    useLegendColorizeRows,
 } from 'src/shared/utils/useLegendOrientation'
 import {
   useVisXDomainSettings,
@@ -109,6 +110,8 @@ const XYPlot: FC<Props> = ({
     legendOrientationThreshold
   )
 
+  const tooltipColorization = useLegendColorizeRows(legendColorizeRows);
+
   const storedXDomain = useMemo(() => parseXBounds(xBounds), [xBounds])
   const storedYDomain = useMemo(() => parseYBounds(yBounds), [yBounds])
   const xColumn = storedXColumn || defaultXColumn(table, '_time')
@@ -197,6 +200,7 @@ const XYPlot: FC<Props> = ({
     legendColumns,
     legendOpacity: tooltipOpacity,
     legendOrientationThreshold: tooltipOrientationThreshold,
+    legendColorizeRows: tooltipColorization,
     valueFormatters: {
       [xColumn]: xFormatter,
       [yColumn]: yFormatter,

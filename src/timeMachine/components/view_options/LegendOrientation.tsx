@@ -33,12 +33,13 @@ import {
   LEGEND_OPACITY_MAXIMUM,
   LEGEND_OPACITY_MINIMUM,
   LEGEND_OPACITY_STEP,
+  LEGEND_COLORIZATION_ROWS_DEFAULT,
 } from 'src/shared/constants'
 
 interface OwnProps {
   onLegendOpacityChange: (opacity: number) => void
   onLegendOrientationThresholdChange: (threshold: number) => void
-  onLegendColorizeRows: (colorize: boolean) => void
+  onLegendColorizeRowsChange: (colorize: boolean) => void
 }
 
 type ReduxProps = ConnectedProps<typeof connector>
@@ -50,6 +51,8 @@ const LegendOrientation: FC<Props> = props => {
     onLegendOpacityChange,
     legendOrientationThreshold,
     onLegendOrientationThresholdChange,
+      legendColorizeRows,
+      onLegendColorizeRowsChange,
   } = props
 
   const [thresholdInputStatus, setThresholdInputStatus] = useState(
@@ -58,7 +61,7 @@ const LegendOrientation: FC<Props> = props => {
   const [thresholdInput, setThresholdInput] = useState(
     legendOrientationThreshold
   )
-  const [legendColorizeRows, setLegendColorizeRows] = useState(
+  const [colorizeRowsInput, setColorizeRowsInput] = useState(
       true //todo make real
   )
 
@@ -86,6 +89,13 @@ const LegendOrientation: FC<Props> = props => {
     } else {
       onLegendOpacityChange(value)
     }
+  }
+
+  const handleSetColorization = (): void => {
+    const value = !colorizeRowsInput;
+
+        setColorizeRowsInput(value);
+    //  onLegendColorizeRows(value)
   }
 
   const sliderStyle={marginTop: 4}
@@ -126,8 +136,9 @@ const LegendOrientation: FC<Props> = props => {
             style={sliderStyle}
         >
         <SlideToggle
-            active={legendColorizeRows}
+            active={colorizeRowsInput}
             size={ComponentSize.ExtraSmall}
+            onChange={handleSetColorization}
           />
         <InputLabel>Colorize Rows</InputLabel>
         </FlexBox>
@@ -148,7 +159,13 @@ const mstp = (state: AppState) => {
     'view.properties.legendOpacity',
     LEGEND_OPACITY_DEFAULT
   )
-  return {legendOpacity, legendOrientationThreshold}
+  const legendColorizationRows: boolean = get(
+      timeMachine,
+      'view.properties.legendColorizationRows',
+      LEGEND_COLORIZATION_ROWS_DEFAULT
+  )
+
+  return {legendOpacity, legendOrientationThreshold, legendColorizationRows}
 }
 
 const connector = connect(mstp)
