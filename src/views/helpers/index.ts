@@ -77,6 +77,13 @@ const legendProps = {  legendOpacity: LEGEND_OPACITY_DEFAULT,
   legendColorizeRows : LEGEND_COLORIZATION_ROWS_DEFAULT,
 }
 
+const tickProps = { xTotalTicks: null,
+  xTickStart: null,
+  xTickStep: null,
+  yTotalTicks: null,
+  yTickStart: null,
+  yTickStep: null}
+
 export function defaultLineViewProperties() {
   return {
     ...legendProps,
@@ -87,12 +94,7 @@ export function defaultLineViewProperties() {
     showNoteWhenEmpty: false,
     generateXAxisTicks: [],
     generateYAxisTicks: [],
-    xTotalTicks: null,
-    xTickStart: null,
-    xTickStep: null,
-    yTotalTicks: null,
-    yTickStart: null,
-    yTickStep: null,
+    ...tickProps,
     axes: {
       x: {
         bounds: ['', ''],
@@ -125,12 +127,7 @@ export function defaultBandViewProperties() {
     showNoteWhenEmpty: false,
     generateXAxisTicks: [],
     generateYAxisTicks: [],
-    xTotalTicks: null,
-    xTickStart: null,
-    xTickStep: null,
-    yTotalTicks: null,
-    yTickStart: null,
-    yTickStep: null,
+  ...tickProps,
     axes: {
       x: {
         bounds: ['', ''],
@@ -254,12 +251,7 @@ const NEW_VIEW_CREATORS = {
       showNoteWhenEmpty: false,
       generateXAxisTicks: [],
       generateYAxisTicks: [],
-      xTotalTicks: null,
-      xTickStart: null,
-      xTickStep: null,
-      yTotalTicks: null,
-      yTickStart: null,
-      yTickStep: null,
+    ...tickProps,
     },
   }),
   'single-stat': (): NewView<SingleStatViewProperties> => ({
