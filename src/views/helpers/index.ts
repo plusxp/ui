@@ -77,7 +77,10 @@ const legendProps = {  legendOpacity: LEGEND_OPACITY_DEFAULT,
   legendColorizeRows : LEGEND_COLORIZATION_ROWS_DEFAULT,
 }
 
-const tickProps = { xTotalTicks: null,
+const tickProps = {
+  generateXAxisTicks: [],
+  generateYAxisTicks: [],
+  xTotalTicks: null,
   xTickStart: null,
   xTickStep: null,
   yTotalTicks: null,
@@ -92,8 +95,6 @@ export function defaultLineViewProperties() {
     legend: {},
     note: '',
     showNoteWhenEmpty: false,
-    generateXAxisTicks: [],
-    generateYAxisTicks: [],
     ...tickProps,
     axes: {
       x: {
@@ -125,8 +126,6 @@ export function defaultBandViewProperties() {
     legend: {},
     note: '',
     showNoteWhenEmpty: false,
-    generateXAxisTicks: [],
-    generateYAxisTicks: [],
   ...tickProps,
     axes: {
       x: {
@@ -249,8 +248,6 @@ const NEW_VIEW_CREATORS = {
       binSize: 10,
       note: '',
       showNoteWhenEmpty: false,
-      generateXAxisTicks: [],
-      generateYAxisTicks: [],
     ...tickProps,
     },
   }),
@@ -324,14 +321,7 @@ const NEW_VIEW_CREATORS = {
       colors: NINETEEN_EIGHTY_FOUR,
       note: '',
       showNoteWhenEmpty: false,
-      generateXAxisTicks: [],
-      generateYAxisTicks: [],
-      xTotalTicks: null,
-      xTickStart: null,
-      xTickStep: null,
-      yTotalTicks: null,
-      yTickStart: null,
-      yTickStep: null,
+    ...tickProps,
       fillColumns: null,
       symbolColumns: null,
       xColumn: null,

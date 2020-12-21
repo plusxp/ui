@@ -1,5 +1,10 @@
 import {createView, defaultBuilderConfig} from 'src/views/helpers/index';
-import {Axis, XYViewProperties, BandViewProperties, HeatmapViewProperties} from "../../client";
+import {
+    XYViewProperties,
+    ScatterViewProperties,
+    BandViewProperties,
+    HeatmapViewProperties,
+} from "../../client";
 import {Base} from "../../types";
 
 describe('intro test', () => {
@@ -9,30 +14,11 @@ describe('intro test', () => {
     })
 })
 
-describe('test 2...playing with views', () => {
-    const ack = createView<XYViewProperties>('xy').properties
-   // console.log("view???", ack);
-
-    const axes  =  {
-            x: {
-                bounds: ['', ''],
-                label: '',
-                prefix: '',
-                suffix: '',
-                base: '10',
-                scale: 'linear',
-            },
-            y: {
-                bounds: ['', ''],
-                label: '',
-                prefix: '',
-                suffix: '',
-                base: '10' as Base,
-                scale: 'linear',
-            },
-        };
+describe('testing view refactoring/components', () => {
 
     const ticks = {
+        generateXAxisTicks: [],
+        generateYAxisTicks: [],
         xTotalTicks: null,
         xTickStart: null,
         xTickStep: null,
@@ -42,7 +28,9 @@ describe('test 2...playing with views', () => {
     };
 
     const checkTickProps = (graphProps) => {
-        //console.log('hi iam inside, with graphprops', graphProps);
+
+        expect(graphProps.generateXAxisTicks).toEqual(ticks.generateXAxisTicks);
+        expect(graphProps.generateYAxisTicks).toEqual(ticks.generateYAxisTicks);
 
         expect(graphProps.xTotalTicks).toEqual(ticks.xTotalTicks);
         expect(graphProps.yTotalTicks).toEqual(ticks.yTotalTicks);
@@ -54,10 +42,8 @@ describe('test 2...playing with views', () => {
         expect(graphProps.yTickStep).toEqual(ticks.yTickStep);
     };
 
-
-
-
     it('xy configuration test should be the same', () => {
+        const ack = createView<XYViewProperties>('xy').properties
         checkTickProps(ack);
    })
 
@@ -71,10 +57,10 @@ describe('test 2...playing with views', () => {
       checkTickProps(heatProps);
     })
 
-
-
-
-
+    it("scatter tick prop test", () => {
+        const scatterProps = createView<ScatterViewProperties>('scatter').properties;
+        checkTickProps(scatterProps);
+    })
 
 });
 
