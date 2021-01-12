@@ -221,6 +221,27 @@ const XYPlot: FC<Props> = ({
         shadeBelowOpacity: 0.08,
         hoverDimension,
       },
+      {type: 'annotation',
+        x: xColumn,
+        y: yColumn,
+        fill: groupKey,
+        annotations: [{
+          title:'first annotation',
+          description:'hi i am a description',
+          color:'magenta',
+          startValue:1610378640000,
+           stopValue:1610378640000,
+          dimension: 'x'
+        },
+
+          {   title:'second annotation',
+            description:'hi i am a description too',
+            color:'cyan',
+            startValue:40,
+            stopValue:40,
+            dimension: 'y'
+          }]
+      }
     ],
   }
 
