@@ -187,6 +187,8 @@ const XYPlot: FC<Props> = ({
   })
 
   const currentTheme = theme === 'light' ? VIS_THEME_LIGHT : VIS_THEME
+//console.log('got table here...(jill-1)', table);
+
 
   const config: Config = {
     ...currentTheme,
@@ -228,19 +230,30 @@ const XYPlot: FC<Props> = ({
         annotations: [{
           title:'first annotation',
           description:'hi i am a description',
-          color:'magenta',
-          startValue:1610378640000,
-           stopValue:1610378640000,
+          color:'#bbaacc',
+          startValue:1610402328554,
+           stopValue:1610402328554,
           dimension: 'x'
         },
+
 
           {   title:'second annotation',
             description:'hi i am a description too',
             color:'cyan',
+            startValue:30,
+            stopValue:30,
+            dimension: 'y'
+          },
+
+          {   title:'third annotation',
+            description:'hello there (3)',
+            color:'magenta',
             startValue:40,
             stopValue:40,
             dimension: 'y'
-          }]
+          },
+
+        ]
       }
     ],
   }
