@@ -244,12 +244,15 @@ export const setQueryByHashID = (queryID: string, result: any): void => {
       queryReference[queryID].status = RemoteDataState.Error
     })
 }
-
+//JILL!  look here for where to insert annotation getting
+//where is this being called?
 export const executeQueries = (abortController?: AbortController) => async (
   dispatch,
   getState: GetState
 ) => {
   const executeQueriesStartTime = Date.now()
+
+  console.log('jill1:  executing queries....');
 
   const state = getState()
 
@@ -260,6 +263,7 @@ export const executeQueries = (abortController?: AbortController) => async (
     ({text}) => !!text.trim()
   )
 
+  console.log('(jill1) queries: ', queries);
   if (!queries.length) {
     dispatch(setQueryResults(RemoteDataState.Done, [], null))
   }
@@ -402,6 +406,7 @@ export const saveAndExecuteQueries = (
 ) => dispatch => {
   dispatch(saveDraftQueries())
   dispatch(setQueryResults(RemoteDataState.Loading, [], null))
+  console.log('in save and execute queries');
   dispatch(executeQueries(abortController))
 }
 

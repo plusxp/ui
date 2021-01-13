@@ -33,6 +33,8 @@ export interface RunQueryErrorResult {
   code?: string
 }
 
+//check where this is called......
+//get annotations here too?  investigate (jill)
 export const runQuery = (
   orgID: string,
   query: string,

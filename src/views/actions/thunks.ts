@@ -144,6 +144,7 @@ export const getViewAndResultsForVEO = (
       return
     }
 
+    console.log('jill1:  dispatching....a1');
     dispatch(executeQueries())
   } catch (error) {
     console.error(error)

@@ -128,6 +128,7 @@ class SubmitQueryButton extends PureComponent<Props> {
   private handleClick = (): void => {
     event('SubmitQueryButton click')
 
+    console.log('jill: about to submit');
     this.props.onSubmit()
   }
 
