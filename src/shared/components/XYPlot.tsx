@@ -52,7 +52,7 @@ interface Props {
   timeZone: TimeZone
   viewProperties: XYViewProperties
   theme: Theme,
-  annotations: any,
+  annotations?: any,
 }
 
 const XYPlot: FC<Props> = ({
@@ -196,11 +196,19 @@ const XYPlot: FC<Props> = ({
     //if there are no colors in the annotations, add them!
 
     annotations.forEach((annotation, index) => {
+      let changed = false;
       if (!annotation.color){
+        changed = true;
         annotation.color='cyan';
-        annotations[index] = annotation
+      }
+      if (!annotation.dimension){
+        annotation.dimension = 'x';
+        changed = true;
       }
 
+      if (changed){
+        annotations[index] = annotation
+      }
     })
 
     annotationLayer = {
