@@ -42,6 +42,35 @@ interface Props {
   checkThresholds?: Threshold[]
   theme: Theme
 }
+//todo:  add annotations as a property above (jill)
+
+
+const testAnnotations =  [{
+  title:'first annotation',
+  description:'hi i am a description (test1)',
+  color:'#bbaacc',
+  startValue:1610402328554,
+  stopValue:1610402328554,
+  dimension: 'x'
+},
+  {   title:'second annotation',
+    description:'hi i am a description too (test2)',
+    color:'steelblue',
+    startValue:30,
+    stopValue:30,
+    dimension: 'y'
+  },
+
+  {   title:'third annotation',
+    description:'hello there ( test 3)',
+    startValue:40,
+    stopValue:40,
+    dimension: 'y'
+  },
+
+]
+
+const annotations = testAnnotations;
 
 const ViewSwitcher: FunctionComponent<Props> = ({
   properties,
@@ -103,6 +132,7 @@ const ViewSwitcher: FunctionComponent<Props> = ({
           timeZone={timeZone}
           viewProperties={properties}
           theme={theme}
+          annotations = {annotations}
         >
           {config => <Plot config={config} />}
         </XYPlot>

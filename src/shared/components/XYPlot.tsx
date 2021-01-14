@@ -51,7 +51,8 @@ interface Props {
   table: Table
   timeZone: TimeZone
   viewProperties: XYViewProperties
-  theme: Theme
+  theme: Theme,
+  annotations: any,
 }
 
 const XYPlot: FC<Props> = ({
@@ -60,6 +61,7 @@ const XYPlot: FC<Props> = ({
   timeRange,
   table,
   timeZone,
+  annotations,
   viewProperties: {
     geom,
     colors,
@@ -189,6 +191,43 @@ const XYPlot: FC<Props> = ({
   const currentTheme = theme === 'light' ? VIS_THEME_LIGHT : VIS_THEME
 //console.log('got table here...(jill-1)', table);
 
+  let annotationLayer = {};
+  if (annotations && annotations.length) {
+    //if there are no colors in the annotations, add them!
+
+    annotations.forEach((annotation, index) => {
+      if (!annotation.color){
+        annotation.color='cyan';
+        annotations[index] = annotation
+      }
+
+    })
+
+    annotationLayer = {
+      type: 'annotation',
+      x: xColumn,
+      y: yColumn,
+      fill: groupKey,
+      annotations
+    }
+  }
+
+  const layers = [
+    {
+      type: 'line',
+      x: xColumn,
+      y: yColumn,
+      fill: groupKey,
+      interpolation,
+      position,
+      colors: colorHexes,
+      shadeBelow: !!shadeBelow,
+      shadeBelowOpacity: 0.08,
+      hoverDimension,
+    },
+      annotationLayer
+      ]
+
 
   const config: Config = {
     ...currentTheme,
@@ -210,52 +249,7 @@ const XYPlot: FC<Props> = ({
       [xColumn]: xFormatter,
       [yColumn]: yFormatter,
     },
-    layers: [
-      {
-        type: 'line',
-        x: xColumn,
-        y: yColumn,
-        fill: groupKey,
-        interpolation,
-        position,
-        colors: colorHexes,
-        shadeBelow: !!shadeBelow,
-        shadeBelowOpacity: 0.08,
-        hoverDimension,
-      },
-      {type: 'annotation',
-        x: xColumn,
-        y: yColumn,
-        fill: groupKey,
-        annotations: [{
-          title:'first annotation',
-          description:'hi i am a description',
-          color:'#bbaacc',
-          startValue:1610402328554,
-           stopValue:1610402328554,
-          dimension: 'x'
-        },
-
-
-          {   title:'second annotation',
-            description:'hi i am a description too',
-            color:'cyan',
-            startValue:30,
-            stopValue:30,
-            dimension: 'y'
-          },
-
-          {   title:'third annotation',
-            description:'hello there (3)',
-            color:'magenta',
-            startValue:40,
-            stopValue:40,
-            dimension: 'y'
-          },
-
-        ]
-      }
-    ],
+    layers,
   }
 
   if (!isValidView) {

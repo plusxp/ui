@@ -30,7 +30,7 @@ import {
   TemplateSummary,
   TemplateSummaryEntities,
   Template,
-  ResourceType,
+  ResourceType, InstalledStack,
 } from 'src/types'
 
 // Utils
@@ -39,6 +39,7 @@ import {getOrg} from 'src/organizations/selectors'
 import {getStatus} from 'src/resources/selectors'
 import {reportErrorThroughHoneyBadger} from 'src/shared/utils/errors'
 import {readMeFormatter} from 'src/templates/utils'
+import {Error as PkgError, getStacks} from "../../client";
 
 type Action = TemplateAction | NotifyAction
 
@@ -99,6 +100,29 @@ export const fetchAndSetStacks = (orgID: string) => async (
     console.error(error)
   }
 }
+//
+// export const fetchAndSetAnnotations = (origID:string) => async (
+//     dispatch: Dispatch<Action>
+// ): Promise<void> => {
+//   try {
+//     const annotations = await fetchAnnotations(orgID)
+//     dispatch(setAnnotations(annotations))
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
+
+//
+// export const fetchAnnotations = async (orgID: string) => {
+//   const resp = await getAnnotations({query: {orgID}})
+//
+//   if (resp.status >= 300) {
+//     throw new Error((resp.data as PkgError).message)
+//   }
+//
+//   return (resp.data as {annotations: InstalledStack[]}).stacks
+// }
+
 
 export const fetchAndSetReadme = (name: string, directory: string) => async (
   dispatch: Dispatch<Action>
