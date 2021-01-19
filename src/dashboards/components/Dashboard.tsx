@@ -36,6 +36,8 @@ class DashboardComponent extends PureComponent<Props> {
   public render() {
     const {cells, status, manualRefresh} = this.props
 
+    console.log('hello! jill1 inside dashboard component....', this.props);
+
     return (
       <SpinnerContainer loading={status} spinnerComponent={<TechnoSpinner />}>
         <Page.Contents fullWidth={true} scrollable={true} className="dashboard">

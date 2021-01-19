@@ -37,6 +37,8 @@ class Cells extends Component<Props> {
   public render() {
     const {views, cells, manualRefresh} = this.props
 
+    console.log('hello! jill1 inside Cells component....', this.props);
+
     return (
       <>
         <ScrollDetector component="dashboard" />

@@ -44,7 +44,6 @@ interface Props {
 }
 //todo:  add annotations as a property above (jill)
 
-
 const testAnnotations =  [{
   title:'first annotation',
   description:'hi i am a description (test1)',
