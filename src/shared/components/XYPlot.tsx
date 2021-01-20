@@ -34,7 +34,7 @@ import {
 
 import {isFlagEnabled} from 'src/shared/utils/featureFlag'
 
-import {writeAnnotation} from 'src/annotations/api'
+import {getAnnotation, writeAnnotation} from 'src/annotations/api'
 
 // Constants
 import {VIS_THEME, VIS_THEME_LIGHT} from 'src/shared/constants'
@@ -266,14 +266,18 @@ const XYPlot: FC<Props> = ({
 
   if (isFlagEnabled('annotations')) {
     const doubleClickHandler = plotInteraction => {
+      console.log('jill2;  plot info??', plotInteraction);
       const annotationTime = new Date(plotInteraction.valueX).toISOString()
+      console.log('jill2:  annotation time?', annotationTime)
       writeAnnotation([
         {
           summary: 'hi',
           start: annotationTime,
           end: annotationTime,
         },
-      ])
+      ]).then(response => {
+        console.log("jill2:  got response from writing annotations:", response);
+      })
     }
 
     const interactionHandlers = {
@@ -281,6 +285,10 @@ const XYPlot: FC<Props> = ({
     }
 
     config.interactionHandlers = interactionHandlers
+
+    getAnnotation({stream:'default'}).then(response => {
+      console.log('got annotations? (jill2)', response);
+    })
   }
 
   return children(config)

@@ -47,6 +47,7 @@ export const getAnnotation = async (
   const formattedQueryString = formatAnnotationQueryString(annotation)
   const appendedURL = `${url}?${formattedQueryString}`
 
+  console.log("jill2: inside getAnnotation");
   const res = await axios.get(appendedURL)
 
   if (res.status >= 300) {
