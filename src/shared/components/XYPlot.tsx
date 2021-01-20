@@ -228,25 +228,6 @@ const XYPlot: FC<Props> = ({
   const currentTheme = theme === 'light' ? VIS_THEME_LIGHT : VIS_THEME
 //console.log('got table here...(jill-1)', table);
 
-  const annotationLayer = makeAnnotationLayer(annotations)
-
-  const layers = [
-    {
-      type: 'line',
-      x: xColumn,
-      y: yColumn,
-      fill: groupKey,
-      interpolation,
-      position,
-      colors: colorHexes,
-      shadeBelow: !!shadeBelow,
-      shadeBelowOpacity: 0.08,
-      hoverDimension,
-    },
-      annotationLayer
-      ]
-
-
   const config: Config = {
     ...currentTheme,
     table,
@@ -267,7 +248,6 @@ const XYPlot: FC<Props> = ({
       [xColumn]: xFormatter,
       [yColumn]: yFormatter,
     },
-    layers,
   }
 
   if (!isValidView) {
@@ -300,6 +280,26 @@ const XYPlot: FC<Props> = ({
       console.log('got annotations? (jill2)', response);
     })
   }
+
+  const annotationLayer = makeAnnotationLayer(annotations)
+
+  const layers = [
+    {
+      type: 'line',
+      x: xColumn,
+      y: yColumn,
+      fill: groupKey,
+      interpolation,
+      position,
+      colors: colorHexes,
+      shadeBelow: !!shadeBelow,
+      shadeBelowOpacity: 0.08,
+      hoverDimension,
+    },
+    annotationLayer
+  ]
+
+  config.layers = layers
 
   return children(config)
 }
