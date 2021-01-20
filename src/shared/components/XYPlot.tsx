@@ -188,14 +188,9 @@ const XYPlot: FC<Props> = ({
     timeFormat,
   })
 
-  const currentTheme = theme === 'light' ? VIS_THEME_LIGHT : VIS_THEME
-//console.log('got table here...(jill-1)', table);
+  const processAnnotations = (anns) => {
 
-  let annotationLayer = {};
-  if (annotations && annotations.length) {
-    //if there are no colors in the annotations, add them!
-
-    annotations.forEach((annotation, index) => {
+    anns.forEach((annotation, index) => {
       let changed = false;
       if (!annotation.color){
         changed = true;
@@ -207,18 +202,33 @@ const XYPlot: FC<Props> = ({
       }
 
       if (changed){
-        annotations[index] = annotation
+        anns[index] = annotation
       }
     })
-
-    annotationLayer = {
-      type: 'annotation',
-      x: xColumn,
-      y: yColumn,
-      fill: groupKey,
-      annotations
-    }
   }
+
+  const makeAnnotationLayer = (anns) => {
+    let annotationLayer = {}
+    if (anns && anns.length) {
+      //if there are no colors in the annotations, add them!
+
+      processAnnotations(annotations)
+
+      annotationLayer = {
+        type: 'annotation',
+        x: xColumn,
+        y: yColumn,
+        fill: groupKey,
+        annotations
+      }
+    }
+    return annotationLayer
+  }
+
+  const currentTheme = theme === 'light' ? VIS_THEME_LIGHT : VIS_THEME
+//console.log('got table here...(jill-1)', table);
+
+  const annotationLayer = makeAnnotationLayer(annotations)
 
   const layers = [
     {

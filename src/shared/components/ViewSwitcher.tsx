@@ -47,7 +47,6 @@ interface Props {
 const testAnnotations =  [{
   title:'first annotation',
   description:'hi i am a description (test1)',
-  color:'#bbaacc',
   startValue:1610402328554,
   stopValue:1610402328554,
   dimension: 'x'
