@@ -11,10 +11,10 @@ import {
 import {RemoteDataState} from 'src/types'
 import {
   Invoice,
-  CreditCardParams,
   Region,
   BillingNotifySettings,
   PaymentMethod,
+  ZuoraParams,
 } from 'src/types/billing'
 
 const makeResponse = (status, data) => {
@@ -76,7 +76,7 @@ export const getPaymentMethods = (): ReturnType<typeof getBillingPaymentMethods>
 }
 
 export const getBillingCreditCard = (): ReturnType<typeof getBillingCc> => {
-  const cc: CreditCardParams = {
+  const cc: ZuoraParams = {
     id: 'id123',
     tenantID: 'tenant123',
     key: 'key123',

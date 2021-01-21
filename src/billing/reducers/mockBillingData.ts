@@ -2,10 +2,10 @@ import {RemoteDataState} from 'src/types'
 import {
   Account,
   BillingNotifySettings,
-  CreditCardParams,
   Invoice,
   PaymentMethod,
   Region,
+  ZuoraParams,
 } from 'src/types/billing'
 
 export const mockAccount: Account = {
@@ -70,7 +70,7 @@ export const mockRegion: Region = {
   status: RemoteDataState.Done,
 }
 
-export const mockCreditCard: CreditCardParams = {
+export const mockCreditCard: ZuoraParams = {
   id: 'cc-123',
   tenantID: 'david-1',
   key: 'value',

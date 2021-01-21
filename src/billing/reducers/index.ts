@@ -6,16 +6,16 @@ import {RemoteDataState} from 'src/types'
 import {
   Account,
   BillingNotifySettings,
-  CreditCardParams,
   Invoice,
   PaymentMethod,
   Region,
+  ZuoraParams,
 } from 'src/types/billing'
 
 export interface BillingState {
   account: Account
   billingSettings: BillingNotifySettings
-  creditCards: CreditCardParams
+  creditCards: ZuoraParams
   invoices: Invoice[]
   invoicesStatus: RemoteDataState
   paymentMethods: PaymentMethod[]
@@ -93,7 +93,7 @@ export const setInvoicesStatus = (status: RemoteDataState) =>
 
 export const setPaymentMethods = (
   paymentMethods: PaymentMethod[],
-  creditCards: CreditCardParams,
+  creditCards: ZuoraParams,
   paymentMethodsStatus: RemoteDataState
 ) =>
   ({

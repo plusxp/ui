@@ -172,7 +172,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreditCardParams'
+                $ref: '#/components/schemas/ZuoraParams'
         default:
           description: Unexpected error
           content:
@@ -646,7 +646,7 @@ components:
           type: string
           description: ref id from Zuora
           readOnly: true
-    CreditCardParams:
+    ZuoraParams:
       properties:
         id:
           description: id of the page displayed

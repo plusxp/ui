@@ -7,16 +7,28 @@ import {
   Region as GenRegion,
   History as GenHistory,
   BillingDate as GenBillingDate,
+  ZuoraParams,
 } from 'src/client/unityRoutes'
 export {
   BillingContact,
-  CreditCardParams,
   Invoice,
   Invoices,
   PaymentMethod,
   PaymentMethods,
+  ZuoraParams,
 } from 'src/client/unityRoutes'
 import {RemoteDataState} from 'src/types'
+
+export type ZuoraResponseHandler = (response: ZuoraResponse) => void
+
+export interface ZuoraClient {
+  render: (
+    zuoraParams: ZuoraParams,
+    formFields: {},
+    onSubmit: ZuoraResponseHandler
+  ) => void
+  submit: () => void
+}
 
 export interface Region extends GenRegion {
   status: RemoteDataState
