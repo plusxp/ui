@@ -73,3 +73,4 @@ export const UsagePage = lazy(() => import('src/usage/UsagePage'))
 export const BillingPage = lazy(() =>
   import('src/billing/components/BillingPage')
 )
+export const CheckoutPage = lazy(() => import('src/checkout/CheckoutPage'))
