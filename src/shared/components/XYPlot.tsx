@@ -278,6 +278,10 @@ const XYPlot: FC<Props> = ({
 
     getAnnotation({stream:'default'}).then(response => {
       console.log('got annotations? (jill2)', response);
+      if (response.length){
+        const newAnnotations = response[0].annotations;
+        console.log("jill2:  unpacked annotations:", newAnnotations);
+      }
     })
   }
 
