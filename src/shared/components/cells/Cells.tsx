@@ -37,7 +37,7 @@ class Cells extends Component<Props> {
   public render() {
     const {views, cells, manualRefresh} = this.props
 
-    console.log('hello! jill1 inside Cells component....', this.props);
+    console.log('hello! jill1 (jill3) inside Cells component....', this.props);
 
     return (
       <>
@@ -138,6 +138,7 @@ const mstp = (state: AppState) => {
     dashboard,
     cells: getCells(state, dashboard),
     views: state.resources.views.byID,
+    annotations: state.annotations,
   }
 }
 const mdtp = {

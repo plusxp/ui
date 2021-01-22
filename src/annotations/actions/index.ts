@@ -1,6 +1,9 @@
+import {Action} from 'src/annotations/creators'
+
 export type ActionTypes =
   | EnableAnnotationStreamAction
   | DisableAnnotationStreamAction
+  | Action
 
 interface EnableAnnotationStreamAction {
   type: 'ENABLE_ANNOTATION_STREAM'

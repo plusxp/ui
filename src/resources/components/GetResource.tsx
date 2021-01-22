@@ -49,6 +49,11 @@ class GetResource extends PureComponent<Props> {
   private getResourceDetails({type, id}: Resource) {
     switch (type) {
       case ResourceType.Dashboards: {
+
+        //eventually get the stream name with a variable, currently hard coded in....
+        //TODO
+        this.props.getAnnotations('default');
+
         return this.props.getDashboard(id, this.controller)
       }
 
