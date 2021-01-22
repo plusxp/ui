@@ -1,10 +1,11 @@
 import {View as GenView, Axis, ViewProperties, DashboardQuery} from 'src/client'
-import {RemoteDataState} from 'src/types'
+import {Annotation, RemoteDataState} from 'src/types'
 
 export interface View<T extends ViewProperties = ViewProperties>
   extends GenView {
   properties: T
   cellID?: string
+  annotations?: Annotation[]
   dashboardID?: string
   status: RemoteDataState
 }

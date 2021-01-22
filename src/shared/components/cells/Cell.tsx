@@ -15,10 +15,11 @@ import EmptyGraphMessage from 'src/shared/components/EmptyGraphMessage'
 import {getByID} from 'src/resources/selectors'
 
 // Types
-import {RemoteDataState, AppState, View, Cell, ResourceType} from 'src/types'
+import {Annotation, RemoteDataState, AppState, View, Cell, ResourceType} from 'src/types'
 
 interface StateProps {
   view: View
+  annotations?: Annotation[]
 }
 
 interface OwnProps {
@@ -36,6 +37,7 @@ type Props = StateProps & OwnProps
 class CellComponent extends Component<Props, State> {
   public render() {
     const {cell, view} = this.props
+    console.log('ack! jill3; in cellcomponent (cell); props:', this.props)
 
     return (
       <>
@@ -84,7 +86,7 @@ class CellComponent extends Component<Props, State> {
   }
 
   private get view(): JSX.Element {
-    const {manualRefresh, view} = this.props
+    const {manualRefresh, view, annotations} = this.props
 
     if (!view || view.status !== RemoteDataState.Done) {
       return <EmptyGraphMessage message="Loading..." />
@@ -102,6 +104,7 @@ class CellComponent extends Component<Props, State> {
       <RefreshingView
         id={view.id}
         properties={view.properties}
+        annotations ={annotations}
         manualRefresh={manualRefresh}
       />
     )
@@ -114,8 +117,9 @@ class CellComponent extends Component<Props, State> {
 
 const mstp = (state: AppState, ownProps: OwnProps) => {
   const view = getByID<View>(state, ResourceType.Views, ownProps.cell.id)
+  const annotations = state.annotations.annotations
 
-  return {view}
+  return {view, annotations}
 }
 
 export default connect<StateProps, {}, OwnProps>(mstp)(CellComponent)

@@ -18,10 +18,11 @@ import {getActiveTimeRange} from 'src/timeMachine/selectors/index'
 
 // Types
 import {
-  TimeRange,
-  TimeZone,
+  Annotation,
   AppState,
   DashboardQuery,
+  TimeRange,
+  TimeZone,
   QueryViewProperties,
   Theme,
 } from 'src/types'
@@ -37,6 +38,7 @@ interface StateProps {
   timeRange: TimeRange
   ranges: TimeRange | null
   timeZone: TimeZone
+  annotations?: Annotation[]
 }
 
 interface State {
@@ -66,7 +68,10 @@ class RefreshingView extends PureComponent<Props, State> {
   }
 
   public render() {
-    const {id, ranges, properties, manualRefresh, timeZone, theme} = this.props
+    const {id, ranges, properties, manualRefresh, timeZone, theme, annotations} = this.props
+
+    console.log('jill3-in refreshing view', this.props)
+
     const {submitToken} = this.state
 
     return (
@@ -106,6 +111,7 @@ class RefreshingView extends PureComponent<Props, State> {
                     statuses={statuses}
                     timeZone={timeZone}
                     theme={theme}
+                    annotations={annotations}
                   />
                 </>
               </EmptyQueryView>

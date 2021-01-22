@@ -19,6 +19,7 @@ import GeoPlot from 'src/shared/components/GeoPlot'
 
 // Types
 import {
+  Annotation,
   CheckViewProperties,
   QueryViewProperties,
   SingleStatViewProperties,
@@ -41,6 +42,7 @@ interface Props {
   checkType?: CheckType
   checkThresholds?: Threshold[]
   theme: Theme
+  annotations?: Annotation[]
 }
 //todo:  add annotations as a property above (jill)
 
@@ -68,7 +70,7 @@ const testAnnotations =  [{
 
 ]
 
-const annotations = testAnnotations;
+//const annotations = testAnnotations;
 
 const ViewSwitcher: FunctionComponent<Props> = ({
   properties,
@@ -80,6 +82,8 @@ const ViewSwitcher: FunctionComponent<Props> = ({
   checkType = null,
   checkThresholds = [],
   theme,
+  annotations,
+
 }) => {
   switch (properties.type) {
     case 'single-stat':
@@ -122,6 +126,7 @@ const ViewSwitcher: FunctionComponent<Props> = ({
         </LatestValueTransform>
       )
     case 'xy':
+      console.log("jill3-1: in xy plot of viewswitcher, annotations???", annotations)
       return (
         <XYPlot
           timeRange={timeRange}

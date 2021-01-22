@@ -35,7 +35,7 @@ type Props = OwnProps & ReduxProps
 @ErrorHandling
 class Cells extends Component<Props> {
   public render() {
-    const {views, cells, manualRefresh} = this.props
+    const {views, cells, manualRefresh, annotations} = this.props
 
     console.log('hello! jill1 (jill3) inside Cells component....', this.props);
 
