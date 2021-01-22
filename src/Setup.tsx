@@ -9,6 +9,8 @@ import {client} from 'src/utils/api'
 import {ErrorHandling} from 'src/shared/decorators/errors'
 import PageSpinner from 'src/perf/components/PageSpinner'
 import {LoginPage} from 'src/onboarding/containers/LoginPage'
+import GetLinks from 'src/shared/containers/GetLinks'
+
 const Signin = lazy(() => import('src/Signin'))
 const OnboardingWizardPage = lazy(() =>
   import('src/onboarding/containers/OnboardingWizardPage')
@@ -86,28 +88,30 @@ export class Setup extends PureComponent<Props, State> {
     const {loading, allowed} = this.state
 
     return (
-      <PageSpinner loading={loading}>
-        <Suspense fallback={<PageSpinner />}>
-          {allowed && (
-            <Route
-              path="/onboarding/:stepID"
-              component={OnboardingWizardPage}
-            />
-          )}
-          {!allowed && (
-            <Switch>
+      <GetLinks>
+        <PageSpinner loading={loading}>
+          <Suspense fallback={<PageSpinner />}>
+            {allowed && (
               <Route
                 path="/onboarding/:stepID"
                 component={OnboardingWizardPage}
               />
-              <Route path={LOGIN} component={LoginPage} />
-              <Route path={SIGNIN} component={SigninPage} />
-              <Route path={LOGOUT} component={Logout} />
-              <Route component={Signin} />
-            </Switch>
-          )}
-        </Suspense>
-      </PageSpinner>
+            )}
+            {!allowed && (
+              <Switch>
+                <Route
+                  path="/onboarding/:stepID"
+                  component={OnboardingWizardPage}
+                />
+                <Route path={LOGIN} component={LoginPage} />
+                <Route path={SIGNIN} component={SigninPage} />
+                <Route path={LOGOUT} component={Logout} />
+                <Route component={Signin} />
+              </Switch>
+            )}
+          </Suspense>
+        </PageSpinner>
+      </GetLinks>
     )
   }
 }
