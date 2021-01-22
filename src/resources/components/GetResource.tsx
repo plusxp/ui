@@ -4,6 +4,7 @@ import {connect, ConnectedProps} from 'react-redux'
 
 // Actions
 import {getDashboard} from 'src/dashboards/actions/thunks'
+import {getAnnotations} from 'src/annotations/actions/thunks'
 
 // Types
 import {AppState, ResourceType} from 'src/types'
@@ -86,6 +87,7 @@ const mstp = (state: AppState, props: OwnProps) => {
 
 const mdtp = {
   getDashboard: getDashboard,
+  getAnnotations: getAnnotations,
 }
 
 const connector = connect(mstp, mdtp)

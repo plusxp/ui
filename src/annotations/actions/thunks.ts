@@ -1,28 +1,35 @@
-import {fetchAnnotations} from 'src/annotations/api'
+import {getAnnotation} from 'src/annotations/api'
 import {Dispatch} from "react";
-import {Error as PkgError} from "../../client";
-import {InstalledStack} from "../../types";
 
-import {Action as }
+import {Annotation} from 'src/types'
+
+import {setAnnotations,
+       Action as AnnotationAction},
+from 'src/annotations/actions/creators'
 
 
-export const fetchAndSetAnnotations = (origID:string) => async (
-    dispatch: Dispatch<Action>
-): Promise<void> => {
-    try {
-        const annotations = await fetchAnnotations(orgID)
-        dispatch(setAnnotations(annotations))
-    } catch (error) {
-        console.error(error)
+// export const fetchAndSetAnnotations = (origID:string) => async (
+//     dispatch: Dispatch<Action>
+// ): Promise<void> => {
+//     try {
+//         const annotations = await fetchAnnotations(orgID)
+//         dispatch(setAnnotations(annotations))
+//     } catch (error) {
+//         console.error(error)
+//     }
+// }
+
+export const getAnnotations =  (stream?: string) => async (
+ dispatch: Dispatch<AnnotationAction>
+ ): Promise<void> =>
+    {
+    const response = await getAnnotation({stream: stream})
+
+    if (response.status >= 300) {
+        throw new Error('no annotations available')
     }
-}
 
-export const fetchAnnotations = async (orgID: string) => {
-    const resp = await getAnnotations({query: {orgID}})
-
-    if (resp.status >= 300) {
-        throw new Error((resp.data as PkgError).message)
+    if (response.length) {
+       dispatch(setAnnotations(response[0].annotations))
     }
-
-    return (resp.data as {annotations: InstalledStack[]}).stacks
 }
