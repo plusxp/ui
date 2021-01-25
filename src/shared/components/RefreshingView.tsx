@@ -156,8 +156,8 @@ class RefreshingView extends PureComponent<Props, State> {
 const testAnnotations =  [{
   title:'first annotation',
   description:'hi i am a description (test1)',
-  startValue:1610402328554,
-  stopValue:1610402328554,
+  startValue:1611246060000,
+  stopValue:1611246060000,
   dimension: 'x'
 },
   {   title:'second annotation',
