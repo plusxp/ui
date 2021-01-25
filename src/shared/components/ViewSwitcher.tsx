@@ -44,7 +44,7 @@ interface Props {
   theme: Theme
   annotations?: Annotation[]
 }
-//todo:  add annotations as a property above (jill)
+
 
 const testAnnotations =  [{
   title:'first annotation',
@@ -127,6 +127,7 @@ const ViewSwitcher: FunctionComponent<Props> = ({
       )
     case 'xy':
       console.log("jill3-1: in xy plot of viewswitcher, annotations???", annotations)
+        const actualAnns = annotations.length? annotations : []
       return (
         <XYPlot
           timeRange={timeRange}
@@ -135,7 +136,7 @@ const ViewSwitcher: FunctionComponent<Props> = ({
           timeZone={timeZone}
           viewProperties={properties}
           theme={theme}
-          annotations = {annotations}
+          annotations = {actualAnns}
         >
           {config => <Plot config={config} />}
         </XYPlot>

@@ -101,6 +101,8 @@ const XYPlot: FC<Props> = ({
   },
   theme,
 }) => {
+  console.log("jill: in beginning of xy plot")
+
   const axisTicksOptions = useAxisTicksGenerator({
     generateXAxisTicks,
     xTotalTicks,
@@ -208,11 +210,13 @@ const XYPlot: FC<Props> = ({
   }
 
   const makeAnnotationLayer = (anns) => {
+    console.log("jill3-3: about to make annotations", anns);
+
     let annotationLayer = {}
     if (anns && anns.length) {
       //if there are no colors in the annotations, add them!
 
-      processAnnotations(annotations)
+      processAnnotations(anns)
 
       annotationLayer = {
         type: 'annotation',
@@ -256,9 +260,13 @@ const XYPlot: FC<Props> = ({
 
   if (isFlagEnabled('annotations')) {
     const doubleClickHandler = plotInteraction => {
-      console.log('jill2;  plot info??', plotInteraction);
-      const annotationTime = new Date(plotInteraction.valueX).toISOString()
-      console.log('jill2:  annotation time?', annotationTime)
+      //doing just valueX gets a 400 error
+
+      const annotationTime = plotInteraction.valueX
+      //const annotationTime = new Date(plotInteraction.valueX).getTime()
+      //const annotationTime = new Date(plotInteraction.valueX).toISOString()
+      console.log('jill: inside double click handler')
+
       writeAnnotation([
         {
           summary: 'hi',
@@ -276,13 +284,13 @@ const XYPlot: FC<Props> = ({
 
     config.interactionHandlers = interactionHandlers
 
-    getAnnotation({stream:'default'}).then(response => {
-      console.log('got annotations? (jill2)', response);
-      if (response.length){
-        const newAnnotations = response[0].annotations;
-        console.log("jill2:  unpacked annotations:", newAnnotations);
-      }
-    })
+    // getAnnotation({stream:'default'}).then(response => {
+    //   console.log('got annotations? (jill2)', response);
+    //   if (response.length){
+    //     const newAnnotations = response[0].annotations;
+    //     console.log("jill2:  unpacked annotations:", newAnnotations);
+    //   }
+    // })
   }
 
   const annotationLayer = makeAnnotationLayer(annotations)
@@ -304,6 +312,8 @@ const XYPlot: FC<Props> = ({
   ]
 
   config.layers = layers
+
+  console.log("layers??", layers)
 
   return children(config)
 }

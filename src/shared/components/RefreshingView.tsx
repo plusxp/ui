@@ -152,16 +152,47 @@ class RefreshingView extends PureComponent<Props, State> {
   }
 }
 
+
+const testAnnotations =  [{
+  title:'first annotation',
+  description:'hi i am a description (test1)',
+  startValue:1610402328554,
+  stopValue:1610402328554,
+  dimension: 'x'
+},
+  {   title:'second annotation',
+    description:'hi i am a description too (test2)',
+    color:'steelblue',
+    startValue:30,
+    stopValue:30,
+    dimension: 'y'
+  },
+
+  {   title:'third annotation',
+    description:'hello there ( test 3)',
+    startValue:40,
+    stopValue:40,
+    dimension: 'y'
+  },
+
+]
+
 const mstp = (state: AppState, ownProps: OwnProps) => {
   const timeRange = getTimeRangeWithTimezone(state)
   const ranges = getActiveTimeRange(timeRange, ownProps.properties.queries)
   const {timeZone, theme} = state.app.persisted
+  const annotations = testAnnotations
+  //state.annotations.annotations
+  //const annotations = []
+
+
 
   return {
     timeRange,
     ranges,
     timeZone,
     theme,
+    annotations
   }
 }
 

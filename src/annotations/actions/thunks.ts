@@ -23,7 +23,7 @@ export const getAnnotations =  (stream?: string) => async (
  ): Promise<void> =>
     {
     const response = await getAnnotation({stream: stream})
-console.log("jill3:  in getAnnotations," response)
+    console.log("jill3:  in getAnnotations,", response)
 
     if (response.status >= 300) {
         throw new Error('no annotations available')

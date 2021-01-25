@@ -104,7 +104,6 @@ class CellComponent extends Component<Props, State> {
       <RefreshingView
         id={view.id}
         properties={view.properties}
-        annotations ={annotations}
         manualRefresh={manualRefresh}
       />
     )
@@ -117,9 +116,9 @@ class CellComponent extends Component<Props, State> {
 
 const mstp = (state: AppState, ownProps: OwnProps) => {
   const view = getByID<View>(state, ResourceType.Views, ownProps.cell.id)
-  const annotations = state.annotations.annotations
+  //const annotations = state.annotations.annotations
 
-  return {view, annotations}
+  return {view}
 }
 
 export default connect<StateProps, {}, OwnProps>(mstp)(CellComponent)
