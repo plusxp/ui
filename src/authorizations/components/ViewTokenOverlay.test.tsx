@@ -16,9 +16,7 @@ const setup = (override?) => {
     ...override,
   }
 
-  renderWithReduxAndRouter(
-    <ViewTokenOverlay {...props} />
-  )
+  renderWithReduxAndRouter(<ViewTokenOverlay {...props} />)
 }
 
 describe('Account', () => {
