@@ -1,6 +1,7 @@
 import React from 'react'
+import {screen} from '@testing-library/react'
 
-import {shallow} from 'enzyme'
+import {renderWithReduxAndRouter} from 'src/mockState'
 
 import GraphOptionsFixFirstColumn from 'src/dashboards/components/GraphOptionsFixFirstColumn'
 
@@ -11,37 +12,36 @@ const setup = (override = {}) => {
     ...override,
   }
 
-  const wrapper = shallow(<GraphOptionsFixFirstColumn {...props} />)
-  return {wrapper, props}
+  renderWithReduxAndRouter(<GraphOptionsFixFirstColumn {...props} />)
 }
 
 describe('Dashboards.Components.GraphOptionsFixFirstColumn', () => {
   describe('rendering', () => {
-    it('shows checkbox and label', () => {
-      const {wrapper} = setup()
-      const label = wrapper.find('label')
-      const checkbox = wrapper.find('input')
+    it('shows checkbox and label', async () => {
+      setup()
+      const elm = await screen.findByTestId('graph-options-first-column')
+      const checkbox = await screen.findByTestId('fix-first-column-checkbox')
 
-      expect(label.exists()).toBe(true)
-      expect(checkbox.exists()).toBe(true)
-      expect(checkbox.prop('type')).toBe('checkbox')
+      expect(elm).toBeVisible()
+      expect(checkbox).toBeVisible()
+      expect(checkbox.getAttribute('type')).toEqual('checkbox')
     })
 
     describe('if fixed is true', () => {
-      it('input is checked', () => {
-        const {wrapper} = setup()
-        const checkbox = wrapper.find('input')
+      it('input is checked', async () => {
+        setup()
+        const checkbox = await screen.findByTestId('fix-first-column-checkbox')
 
-        expect(checkbox.prop('checked')).toBe(true)
+        expect(checkbox.getAttribute('checked')).toBe('')
       })
     })
 
     describe('if fixed is false', () => {
-      it('input is not checked', () => {
-        const {wrapper} = setup({fixed: false})
-        const checkbox = wrapper.find('input')
+      it('input is not checked', async () => {
+        setup({fixed: false})
+        const checkbox = await screen.findByTestId('fix-first-column-checkbox')
 
-        expect(checkbox.prop('checked')).toBe(false)
+        expect(checkbox.getAttribute('checked')).toBe(null)
       })
     })
   })
