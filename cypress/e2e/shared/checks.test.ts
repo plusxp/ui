@@ -5,19 +5,22 @@ const PAGE_LOAD_SLA = 10000
 
 const measurement = 'my_meas'
 const field = 'my_field'
+const stringField = 'string_field'
 describe('Checks', () => {
   beforeEach(() => {
     cy.flush()
 
     cy.signin().then(() => {
-      cy.writeData([`${measurement} ${field}=0`, `${measurement} ${field}=1`])
-
       // visit the alerting index
-      cy.get('@org').then(({id}: Organization) =>
+      cy.get('@org').then(({id: orgID}: Organization) => {
+        cy.writeData([
+          `${measurement} ${field}=0,${stringField}="string1"`,
+          `${measurement} ${field}=1,${stringField}="string2"`,
+        ])
         cy.fixture('routes').then(({orgs, alerting}) => {
-          cy.visit(`${orgs}/${id}${alerting}`)
+          cy.visit(`${orgs}/${orgID}${alerting}`)
         })
-      )
+      })
     })
     cy.get('[data-testid="resource-list--body"]', {timeout: PAGE_LOAD_SLA})
 
@@ -77,7 +80,7 @@ describe('Checks', () => {
     })
 
     cy.log('Name the check; save')
-    cy.getByTestID('overlay').within(() => {
+    cy.getByTestID('overlay--container').within(() => {
       cy.getByTestID('page-title')
         .contains('Name this Check')
         .click()
@@ -262,6 +265,31 @@ describe('Checks', () => {
       .should('exist')
   })
 
+  it('checks only allow numeric fields', () => {
+    // create deadman check
+    cy.getByTestID('create-check').click()
+    cy.getByTestID('create-deadman-check').click()
+
+    // checklist popover and save button check
+    cy.get('.query-checklist--popover').should('be.visible')
+    cy.getByTestID('save-cell--button').should('be.disabled')
+
+    // select measurement and field - checklist popover should disappear, save button should activate
+    cy.getByTestID(`selector-list defbuck`).click()
+    cy.getByTestID(`selector-list ${measurement}`).click()
+    cy.getByTestID('save-cell--button').should('be.disabled')
+    cy.getByTestID(`selector-list ${stringField}`).click()
+    cy.get('.query-checklist--popover').should('not.exist')
+    cy.getByTestID('save-cell--button').should('be.enabled')
+
+    // submit the graph
+    cy.getByTestID('empty-graph--no-queries')
+    cy.getByTestID('time-machine-submit-button').click()
+
+    // check for error message
+    cy.getByTestID('empty-graph--numeric').should('exist')
+  })
+
   describe('When a check does not exist', () => {
     it('should route the user to the alerting index page', () => {
       const nonexistentID = '046cd86a2030f000'
@@ -270,10 +298,8 @@ describe('Checks', () => {
       cy.get('@org').then(({id}: Organization) => {
         cy.fixture('routes').then(({orgs, alerting, checks}) => {
           cy.visit(`${orgs}/${id}${alerting}${checks}/${nonexistentID}/edit`)
-          cy.url().should(
-            'eq',
-            `${Cypress.config().baseUrl}${orgs}/${id}${alerting}`
-          )
+
+          cy.url().should('include', `${orgs}/${id}${alerting}`)
         })
       })
     })
@@ -349,9 +375,7 @@ describe('Checks', () => {
             Cypress.minimatch(
               url,
               `
-                ${
-                  Cypress.config().baseUrl
-                }${orgs}/${id}${alerting}${checks}/*/edit
+                *${orgs}/${id}${alerting}${checks}/*/edit
               `
             )
           })

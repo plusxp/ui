@@ -18,7 +18,7 @@ export const DashboardsIndex = lazy(() =>
 export const DashboardContainer = lazy(() =>
   import('src/dashboards/components/DashboardContainer')
 )
-export const FlowPage = lazy(() => import('src/flows/components/Flow'))
+export const FlowPage = lazy(() => import('src/flows/components/FlowPage'))
 export const BucketsIndex = lazy(() =>
   import('src/buckets/containers/BucketsIndex')
 )
@@ -68,4 +68,8 @@ export const FlowsIndex = lazy(() => import('src/flows/components/FlowsIndex'))
 export const NotFound = lazy(() => import('src/shared/components/NotFound'))
 export const UsersPage = lazy(() =>
   import('src/unity/components/users/UsersPage')
+)
+export const UsagePage = lazy(() => import('src/usage/UsagePage'))
+export const BillingPage = lazy(() =>
+  import('src/billing/components/BillingPage')
 )
