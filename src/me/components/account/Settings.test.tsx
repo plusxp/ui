@@ -1,6 +1,7 @@
 // Libraries
 import React from 'react'
-import {mount} from 'enzyme'
+import {screen} from '@testing-library/react'
+import {renderWithReduxAndRouter} from 'src/mockState'
 
 // Components
 import {Settings} from 'src/me/components/account/Settings'
@@ -12,24 +13,15 @@ const setup = (override?) => {
     ...override,
   }
 
-  const wrapper = mount(<Settings {...props} />)
-
-  return {wrapper}
+  renderWithReduxAndRouter(<Settings {...props} />)
 }
 
 describe('Account', () => {
   describe('rendering', () => {
-    it('renders!', () => {
-      const {wrapper} = setup()
-
-      expect(wrapper.exists()).toBe(true)
-    })
-
-    it('displays the users info by default', () => {
-      const {wrapper} = setup()
-
-      const nameInput = wrapper.find({'data-testid': 'nameInput'})
-      expect(nameInput.props().value).toBe(me.name)
+    it('displays the users info by default', async () => {
+      setup()
+      const elm = await screen.getByTestId('nameInput')
+      expect(elm.getAttribute('value')).toBe(me.name)
     })
   })
 })

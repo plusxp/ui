@@ -1,6 +1,7 @@
 // Libraries
 import React from 'react'
-import {shallow} from 'enzyme'
+import {screen} from '@testing-library/react'
+import {renderWithReduxAndRouter} from 'src/mockState'
 
 // Components
 import FetchAuthToken from 'src/dataLoaders/components/verifyStep/FetchAuthToken'
@@ -15,14 +16,13 @@ const setup = (override = {}) => {
     ...override,
   }
 
-  const wrapper = shallow(<FetchAuthToken {...props} />)
-
-  return {wrapper}
+  renderWithReduxAndRouter(<FetchAuthToken {...props} />)
 }
 
 describe('FetchAuthToken', () => {
-  it('renders', () => {
-    const {wrapper} = setup()
-    expect(wrapper.exists()).toBe(true)
+  it('renders', async () => {
+    setup()
+    const elm = await screen.getByTestId('spinner-container')
+    expect(elm).toBeVisible()
   })
 })
